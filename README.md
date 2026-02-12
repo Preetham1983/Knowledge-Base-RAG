@@ -1,13 +1,43 @@
-# 📚 Knowledge Base RAG — Intelligent PDF Q&A
+#  Knowledge Base RAG — Intelligent PDF Q&A
 
 > **Chat with your documents like you're talking to the author.**
 > Upload any PDF, and this app will understand it, summarize it, and answer your questions — powered by a production-grade Retrieval-Augmented Generation pipeline running entirely on your local machine.
 
 No API keys. No cloud dependency. Just your PDFs and a thoughtfully engineered RAG system.
 
+##  Project Structure
+
+```
+knowledge-base-rag/
+├── backend/
+│   └── app.py              # Flask backend — RAG pipeline, PDF processing, LLM calls
+├── my-app/
+│   ├── src/
+│   │   ├── App.js           # Main React component — layout and routing
+│   │   ├── App.css          # Grid layout, responsive design
+│   │   ├── index.css        # Global styles, CSS variables, theme
+│   │   └── components/
+│   │       ├── FileUpload.js   # PDF upload + summary generation
+│   │       ├── FileUpload.css
+│   │       ├── QueryForm.js    # Question input form
+│   │       ├── QueryForm.css
+│   │       ├── Response.js     # Chat-style response display
+│   │       ├── Response.css
+│   │       ├── QueryList.js    # Query history display
+│   │       └── QueryList.css
+│   ├── public/
+│   ├── package.json
+│   └── requirements.txt    # Python dependencies
+├── mongobackend/
+│   └── server.js            # Express.js server for MongoDB query storage
+├── faiss_index/             # Auto-generated FAISS index (after upload)
+└── README.md
+```
+
+---
 ---
 
-## ✨ What This Project Does
+##  What This Project Does
 
 Knowledge Base RAG is a full-stack application where you can:
 
@@ -20,7 +50,7 @@ The whole thing runs locally using **Llama 3.1** via Ollama, so your data never 
 
 ---
 
-## 🧠 Why I Built the RAG Pipeline This Way
+##  Why I Built the RAG Pipeline This Way
 
 Most RAG tutorials show you the bare minimum — embed text, do a similarity search, throw it at an LLM, and call it a day. That works for demos, but it falls apart fast with real documents. Here's the thing: **a single retrieval strategy is never good enough**.
 
@@ -28,7 +58,7 @@ I wanted something that actually works on messy, real-world PDFs — research pa
 
 Here's the full flow, and *why* each piece matters:
 
-### 🔍 Stage 1: Hybrid Search (BM25 + FAISS Vector Search)
+###  Stage 1: Hybrid Search (BM25 + FAISS Vector Search)
 
 When a user asks a question, we don't just do one type of search — we run **two fundamentally different retrieval strategies** in parallel:
 
@@ -41,7 +71,7 @@ When a user asks a question, we don't just do one type of search — we run **tw
 
 We pull the **top 5 results from each retriever**, combine them, and deduplicate — giving us a broad, diverse candidate pool of roughly 7-10 unique chunks.
 
-### 🏆 Stage 2: Cross-Encoder Reranking
+###  Stage 2: Cross-Encoder Reranking
 
 Here's the problem with Stage 1: we have ~10 candidate chunks, but not all of them are equally relevant. Vector similarity and BM25 scores aren't directly comparable, and both can return false positives.
 
@@ -57,7 +87,7 @@ User Question
      └──→ BM25  (top 5 keyword matches)  ──┘
 ```
 
-### 🔁 Stage 3: 2-Pass RAG Generation
+###  Stage 3: 2-Pass RAG Generation
 
 Even after retrieving the best chunks, I don't just throw them at the LLM once and show the result. The pipeline uses a **2-pass generation** approach:
 
@@ -78,7 +108,7 @@ The user sees the refined answer. The raw first-pass answer is also returned to 
 
 **Why 2-pass instead of just one?** Because LLMs often "warm up" on a topic — the first answer is usually correct but rambling or slightly off-focus. The refinement pass is like a built-in editor that cleans things up. It's a simple technique that consistently improves output quality without any extra infrastructure.
 
-### 📐 The Complete Pipeline
+###  The Complete Pipeline
 
 ```
 📄 PDF Upload
@@ -131,7 +161,7 @@ The user sees the refined answer. The raw first-pass answer is also returned to 
 
 ---
 
-## 🖥️ Frontend
+##  Frontend
 
 The frontend is a **React** application with a clean, modern interface inspired by chat applications. It has three main sections:
 
@@ -143,7 +173,6 @@ The frontend is a **React** application with a clean, modern interface inspired 
 
 ### Chat Interface (Right Side)
 - Clean conversation-style layout with user and AI message bubbles
-- User questions appear with a 👤 avatar, AI responses with a 🤖 avatar
 - Loading animation while the RAG pipeline processes
 - Displays the retrieved PDF context below the answer for transparency
 
@@ -154,7 +183,7 @@ The frontend is a **React** application with a clean, modern interface inspired 
 
 The layout is **fully responsive** — on desktop it's a two-column grid (upload panel on the left, chat + query on the right), and on mobile everything stacks vertically.
 
-### 📸 Screenshots
+###  Screenshots
 
 > **Add your own screenshots here!** Run the app and take screenshots to showcase your work.
 > Save them in a `screenshots/` folder and reference them like this:
@@ -169,7 +198,7 @@ The layout is **fully responsive** — on desktop it's a two-column grid (upload
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
@@ -186,7 +215,7 @@ The layout is **fully responsive** — on desktop it's a two-column grid (upload
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -268,7 +297,7 @@ npm start
 
 ---
 
-## 📖 How to Use
+##  How to Use
 
 1. **Upload a PDF** — Click "Choose File(s)" in the left panel, select one or more PDFs, then hit "Upload & Process." The app will extract text, chunk it, and build the FAISS index.
 
@@ -280,38 +309,9 @@ npm start
 
 ---
 
-## 📂 Project Structure
 
-```
-knowledge-base-rag/
-├── backend/
-│   └── app.py              # Flask backend — RAG pipeline, PDF processing, LLM calls
-├── my-app/
-│   ├── src/
-│   │   ├── App.js           # Main React component — layout and routing
-│   │   ├── App.css          # Grid layout, responsive design
-│   │   ├── index.css        # Global styles, CSS variables, theme
-│   │   └── components/
-│   │       ├── FileUpload.js   # PDF upload + summary generation
-│   │       ├── FileUpload.css
-│   │       ├── QueryForm.js    # Question input form
-│   │       ├── QueryForm.css
-│   │       ├── Response.js     # Chat-style response display
-│   │       ├── Response.css
-│   │       ├── QueryList.js    # Query history display
-│   │       └── QueryList.css
-│   ├── public/
-│   ├── package.json
-│   └── requirements.txt    # Python dependencies
-├── mongobackend/
-│   └── server.js            # Express.js server for MongoDB query storage
-├── faiss_index/             # Auto-generated FAISS index (after upload)
-└── README.md
-```
 
----
-
-## 🤔 Why Hybrid Search + Reranking Instead of Graph RAG?
+##  Why Hybrid Search + Reranking Instead of Graph RAG?
 
 I specifically chose **Hybrid RAG with reranking** over something more complex like Graph RAG, and here's my honest reasoning:
 
@@ -329,7 +329,7 @@ When something goes wrong (and it will), I can inspect each stage independently 
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 This is a personal project, but I'm always open to ideas. If you find a bug or have a suggestion:
 
@@ -340,7 +340,7 @@ This is a personal project, but I'm always open to ideas. If you find a bug or h
 
 ---
 
-## 📝 License
+##  License
 
 This project is open source and available under the [MIT License](LICENSE).
 
