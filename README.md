@@ -1,6 +1,6 @@
 #  Knowledge Base RAG — Intelligent PDF Q&A
 
-> **Chat with your documents like you're talking to the author.**
+> **Interact  with your documents like you're talking to the author.**
 > Upload any PDF, and this app will understand it, summarize it, and answer your questions — powered by a production-grade Retrieval-Augmented Generation pipeline running entirely on your local machine.
 
 No API keys. No cloud dependency. Just your PDFs and a thoughtfully engineered RAG system.
@@ -23,13 +23,10 @@ knowledge-base-rag/
 │   │       ├── QueryForm.css
 │   │       ├── Response.js     # Chat-style response display
 │   │       ├── Response.css
-│   │       ├── QueryList.js    # Query history display
-│   │       └── QueryList.css
+│   │    
 │   ├── public/
 │   ├── package.json
 │   └── requirements.txt    # Python dependencies
-├── mongobackend/
-│   └── server.js            # Express.js server for MongoDB query storage
 ├── faiss_index/             # Auto-generated FAISS index (after upload)
 └── README.md
 ```
@@ -41,7 +38,7 @@ knowledge-base-rag/
 
 Knowledge Base RAG is a full-stack application where you can:
 
-- **Upload one or more PDFs** and have them instantly chunked, embedded, and indexed.
+- **Upload PDF** and have them instantly chunked, embedded, and indexed.
 - **Ask natural language questions** about your documents and get accurate, grounded answers.
 - **Generate document summaries** with a single click.
 - **See the AI think in real time** — with a chat-style interface that shows user questions and AI responses.
@@ -67,13 +64,14 @@ When a user asks a question, we don't just do one type of search — we run **tw
 | **FAISS (Vector Search)** | Converts the query into an embedding and finds semantically similar chunks | Understanding *meaning* — catches paraphrased content, synonyms, conceptual matches |
 | **BM25 (Keyword Search)** | Classic TF-IDF style term-frequency matching | Exact matches — names, acronyms, IDs, specific terms that embeddings sometimes miss |
 
-**Why hybrid?** Because neither alone is reliable enough. Vector search is amazing at "what does this mean?" but terrible at "find the paragraph that mentions RFC-7231." BM25 nails exact keyword hits but completely misses semantically related content. Together, they cover each other's blind spots.
+**Why hybrid?** Because neither alone is reliable enough. Vector search is amazing at "what does this mean?" but terrible at "find the paragraph that mentions GPU's RTX and H100." BM25 nails exact keyword hits but completely misses semantically related content. Together, they cover each other's blind spots.
 
-We pull the **top 5 results from each retriever**, combine them, and deduplicate — giving us a broad, diverse candidate pool of roughly 7-10 unique chunks.
+We pull the **top 5 results from each retriever**, combine them, and deduplicate — giving us a broad, diverse candidate pool of not exactly but roughly 7-10 unique chunks.
 
 ###  Stage 2: Cross-Encoder Reranking
 
-Here's the problem with Stage 1: we have ~10 candidate chunks, but not all of them are equally relevant. Vector similarity and BM25 scores aren't directly comparable, and both can return false positives.
+Here's the problem with Stage 1: we have ~7 to 10 candidate chunks, but not all of them are equally relevant. Vector similarity and BM25 scores aren't directly comparable, and both can return false positives.
+there will be relevant chunks and half relevant chunks and some are completely irrelevant 
 
 So after the initial retrieval, we run every candidate through a **Cross-Encoder reranker** (`cross-encoder/ms-marco-MiniLM-L-6-v2`). Unlike the bi-encoder used for embedding search, a cross-encoder takes the *full question-document pair* as input and scores their relevance together. It's slower (which is why we don't use it for initial retrieval), but it's dramatically more accurate at ranking.
 
@@ -183,35 +181,21 @@ The frontend is a **React** application with a clean, modern interface inspired 
 
 The layout is **fully responsive** — on desktop it's a two-column grid (upload panel on the left, chat + query on the right), and on mobile everything stacks vertically.
 
-###  Screenshots
-
-> **Add your own screenshots here!** Run the app and take screenshots to showcase your work.
-> Save them in a `screenshots/` folder and reference them like this:
-
-```markdown
-<!-- Uncomment these after adding your screenshots -->
-
-<!-- ![Upload & Summary View](screenshots/upload-view.png) -->
-<!-- ![Chat Q&A Interface](screenshots/chat-view.png) -->
-<!-- ![Mobile Responsive View](screenshots/mobile-view.png) -->
-```
-
----
 
 ##  Tech Stack
 
 | Layer | Technology | Purpose |
 |-------|-----------|---------|
-| **LLM** | Llama 3.1 (via Ollama) | Local, private language model for generation |
+| **LLM** | Llama 3.1 latest 8b (via Ollama) | Local, private language model for generation |
 | **Embeddings** | `sentence-transformers/all-MiniLM-L6-v2` | Fast, lightweight sentence embeddings |
-| **Vector Store** | FAISS | Facebook's high-performance similarity search |
+| **Vector Store** | FAISS | Facebook's  AI similarity search |
 | **Keyword Search** | BM25 (via LangChain) | Classic term-frequency retrieval |
 | **Reranker** | `cross-encoder/ms-marco-MiniLM-L-6-v2` | Accurate relevance scoring for candidate reranking |
 | **Backend** | Flask + Flask-CORS | REST API serving the RAG pipeline |
 | **Frontend** | React 19 | Modern chat-style user interface |
 | **PDF Parsing** | PyPDF2 | Reliable PDF text extraction |
 | **Text Splitting** | LangChain RecursiveCharacterTextSplitter | Intelligent chunking with overlap |
-| **Query History** | MongoDB + Express.js | Persists past questions and answers |
+
 
 ---
 
@@ -229,7 +213,7 @@ Make sure you have these installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/knowledge-base-rag.git
+git clone https://github.com/Preetham1983/knowledge-base-rag.git
 cd knowledge-base-rag
 ```
 
@@ -239,7 +223,7 @@ cd knowledge-base-rag
 ollama pull llama3.1
 ```
 
-> This downloads the Llama 3.1 model (~4.7 GB). It runs entirely on your machine — no internet needed after the initial download.
+> This downloads the Llama 3.1 model (4.9 GB). It runs entirely on your machine — no internet needed after the initial download.
 
 ### 3. Set Up the Backend
 
