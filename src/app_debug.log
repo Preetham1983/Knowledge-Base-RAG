@@ -1,0 +1,55 @@
+--- New Upload ---
+Processing file: test.pdf
+  Found 1 pages.
+  Warning: No text found on page 1
+Total extracted text length: 0
+--- New Upload ---
+Processing file: Ai-sum.pdf
+  Found 2 pages.
+  Warning: No text found on page 1
+  Warning: No text found on page 2
+Total extracted text length: 0
+--- New Upload ---
+Processing file: Dinesh-Testimonial-en-US.pdf
+  Found 1 pages.
+Total extracted text length: 1379
+--- New Upload ---
+Processing file: To speak about multi-threading.txt
+Error reading To speak about multi-threading.txt: EOF marker not found
+Traceback (most recent call last):
+  File "C:\Users\BandiPreethamReddy\Desktop\Chat-With-Author-main\my-app\src\app.py", line 530, in extract_pdf_text
+    reader = PdfReader(pdf)
+  File "C:\Users\BandiPreethamReddy\AppData\Roaming\Python\Python314\site-packages\PyPDF2\_reader.py", line 319, in __init__
+    self.read(stream)
+    ~~~~~~~~~^^^^^^^^
+  File "C:\Users\BandiPreethamReddy\AppData\Roaming\Python\Python314\site-packages\PyPDF2\_reader.py", line 1415, in read
+    self._find_eof_marker(stream)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\BandiPreethamReddy\AppData\Roaming\Python\Python314\site-packages\PyPDF2\_reader.py", line 1471, in _find_eof_marker
+    raise PdfReadError("EOF marker not found")
+PyPDF2.errors.PdfReadError: EOF marker not found
+Total extracted text length: 0
+--- New Upload ---
+Processing file: test.pdf
+  Found 9 pages.
+Total extracted text length: 31665
+--- New Upload ---
+Processing file: test.pdf
+  Found 9 pages.
+Total extracted text length: 31665
+--- New Upload ---
+Processing file: test.pdf
+  Found 9 pages.
+Total extracted text length: 31665
+--- New Upload ---
+Processing file: Dinesh-Testimonial-en-US.pdf
+  Found 1 pages.
+Total extracted text length: 1379
+--- New Upload ---
+Processing file: Dinesh-Testimonial-en-US.pdf
+  Found 1 pages.
+Total extracted text length: 1379
+--- New Upload ---
+Processing file: Dinesh-Testimonial-en-US.pdf
+  Found 1 pages.
+Total extracted text length: 1379

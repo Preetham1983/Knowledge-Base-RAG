@@ -1,0 +1,41 @@
+Dinesh -Testimonial  
+ 
+0:00 
+Hi I am Dinesh, I have been in Python practice for almost a year now.  
+ 
+0:04 
+I am I will go to share my experience with how I learned AI and we have multiple accelerators in 
+Python practice and one such accelerator is ART.  
+ 
+0:11 
+In ART we do reverse engineering of code bases to create documentation and this is where I learnt 
+about Landgraf and all the other agentic AI frameworks and this is where I got my of AI to be strong.  
+ 
+0:24 
+After this accelerator, we started on a new accelerator called Raven.  
+ 
+0:28 
+In Raven we tried to mitigate vulnerabilities that are there in code basis and that is where I was able to 
+architect and design AI agent workflows and I got a better grip on AI.  
+ 
+0:39 
+And if you are interested in AI, if you want to contribute and learn more on AI, then we do have 
+multiple other accelerators and this is a good place where you can start to learn AI.  
+ 
+0:48 
+And from this, there are opportunity to become available as well in other projects.  
+ 
+0:52 
+And we do have multiple other accelerators if you are interested.  
+ 
+0:56 
+Then there is also a weekly Chai meeting that we have on every week.  
+ 
+1:00 
+And this meeting we talk about what are good things that we do in AI.  
+ 
+1:03 
+And if you are interested, please join us in contributing to all these activities.  
+ 
+1:07 
+Yeah, thanks.  
