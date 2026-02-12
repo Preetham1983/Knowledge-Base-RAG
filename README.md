@@ -305,12 +305,6 @@ Graph RAG shines when you need to trace relationships between entities (people, 
 **2. Speed matters.**
 Graph RAG adds significant overhead — entity extraction, graph construction, traversal queries. My hybrid pipeline processes queries in seconds on a modest machine. For an interactive Q&A tool, response time is everything.
 
-**3. BM25 + Vector + Reranking is genuinely powerful.**
-This isn't a shortcut. Research papers ([Nogueira et al.](https://arxiv.org/abs/1901.04085), [MS MARCO benchmarks](https://microsoft.github.io/msmarco/)) consistently show that a hybrid first-stage retriever paired with a cross-encoder reranker matches or outperforms much more complex systems on passage retrieval tasks. Adding the 2-pass generation on top pushes answer quality even further.
-
-**4. It's debuggable.**
-When something goes wrong (and it will), I can inspect each stage independently — check what BM25 returned, what FAISS returned, how the reranker scored them, what the first pass generated vs. the refinement. With Graph RAG, debugging is a nightmare.
-
 ---
 
 ##  Contributing
